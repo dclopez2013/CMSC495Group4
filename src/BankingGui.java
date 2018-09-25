@@ -62,27 +62,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         mainPane.setLayout(new GridBagLayout());
         mainPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         
-        //TODO: Add combobox pane back in
-//        // ComboxBox Pane
-//        mainPane.add(comboBoxPane,BorderLayout.PAGE_START);
-//        // Cards Pane
-//        mainPane.add(cards,BorderLayout.CENTER);
-        
-        
-        
-        // Add each card to card pane
-//        cards.add(checkViewPanel);
-//        cards.add(saveViewPanel);
-//        CardLayout cardLayout = (CardLayout)(cards.getLayout());
-//        cardLayout.addLayoutComponent(checkViewPanel,checkViewText);
-//        cardLayout.addLayoutComponent(saveViewPanel,saveViewText);
-        // cardLayout.show(checkViewPanel, checkViewText);
-        
-   //adding UI elements to checkView panel
-        
-//        checkViewPanel.setLayout(new GridBagLayout());
-//        checkViewPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        
+                
         //Mobile Banking Label
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
         optionsPanelCon.weightx = 0.5;
@@ -154,11 +134,12 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
         optionsPanelCon.ipady = 150;
         optionsPanelCon.weightx = 1;
-        optionsPanelCon.gridx = 1;
+        optionsPanelCon.gridx = 0;
         optionsPanelCon.gridy = 4;
+        optionsPanelCon.gridwidth = 4;
         // Add each card to card pane
         checkViewPanel.add(checkActivityPanel);
-        checkActivityPanel.setPreferredSize(new Dimension(800,500));
+        checkActivityPanel.setPreferredSize(new Dimension(550,200));
         saveViewPanel.add(saveActivityPanel);
         cards.add(checkViewPanel);
         cards.add(saveViewPanel);
@@ -167,33 +148,12 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         cardLayout.addLayoutComponent(saveViewPanel,saveViewText);
         mainPane.add(cards, optionsPanelCon);
 
-        
-
-
-
-        
-        
-//        //if checking account and view balance show checking table data
-//        mainPane.add(checkActivityPanel,optionsPanelCon);
-//	        checkActivityPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//	        checkActivityPanel.setPreferredSize(new Dimension(450,100));
-//	        
-//	    //if savings account and view balance show savings table data    
-//	        mainPane.add(saveActivityPanel,optionsPanelCon);
-//	        saveActivityPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//	        saveActivityPanel.setPreferredSize(new Dimension(450,100));
-        ButtonGroup group = new ButtonGroup();
+          ButtonGroup group = new ButtonGroup();
         group.add(viewBalanceRadio);
         group.add(makeDepositRadio);
   
         // Adding elements to savingsViewPanel
         saveViewPanel.add(saveTestText);
-        
-        
-        
-        
-        
-        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);  
 
