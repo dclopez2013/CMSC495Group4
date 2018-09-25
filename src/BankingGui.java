@@ -10,7 +10,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 
-public class BankingGui extends JFrame implements ItemListener{
+public class BankingGui extends JFrame implements ItemListener, ActionListener{
 
 	JPanel mainPane = new JPanel();
 	JPanel comboBoxPane = new JPanel();
@@ -24,6 +24,7 @@ public class BankingGui extends JFrame implements ItemListener{
 	String[] accountType = {"Checking","Savings"};
 	JComboBox selectAccount = new JComboBox(accountType);
 	String selectedAccount = "Checking";
+	JButton changeAccountButton = new JButton("Change Account");
 	
 	//Checking View Panel declarations
 	JLabel bankingText = new JLabel("Mobile Banking");
@@ -64,9 +65,12 @@ public class BankingGui extends JFrame implements ItemListener{
         // Cards Pane
         mainPane.add(cards,BorderLayout.CENTER);
         // Add each card to card pane
-        cards.add(checkViewPanel,checkViewText);
-        cards.add(saveViewPanel,saveViewText);
-        
+        cards.add(checkViewPanel);
+        cards.add(saveViewPanel);
+        CardLayout cardLayout = (CardLayout)(cards.getLayout());
+        cardLayout.addLayoutComponent(checkViewPanel,checkViewText);
+        cardLayout.addLayoutComponent(saveViewPanel,saveViewText);
+        // cardLayout.show(checkViewPanel, checkViewText);
         
    //adding UI elements to checkView panel
         
@@ -91,6 +95,15 @@ public class BankingGui extends JFrame implements ItemListener{
         optionsPanelCon.gridx = 1;
         optionsPanelCon.gridy = 1;
         checkViewPanel.add(selectAccount, optionsPanelCon);
+        
+      //Change Account Type Button
+        optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
+        optionsPanelCon.weightx = 0.5;
+        optionsPanelCon.weighty = 0.5;
+        //optionsPanelCon.ipady = 50;
+        optionsPanelCon.gridx = 2;
+        optionsPanelCon.gridy = 1;
+        checkViewPanel.add(changeAccountButton, optionsPanelCon);
         
         //View Balance Radio
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
@@ -148,30 +161,39 @@ public class BankingGui extends JFrame implements ItemListener{
         ButtonGroup group = new ButtonGroup();
         group.add(viewBalanceRadio);
         group.add(makeDepositRadio);
-  // Adding elements to savingsViewPanel
+  
+        // Adding elements to savingsViewPanel
         saveViewPanel.add(saveTestText);
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);  
 
         //Select Account Listener
-//        selectAccount.addActionListener(this); 
+        changeAccountButton.addActionListener(this); 
 	}
 	
 	
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		String selectedAccount = (String)selectAccount.getSelectedItem();
-//		System.out.println(selectedAccount);
-//		
-//	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String selectedAccount = (String)selectAccount.getSelectedItem();
+		System.out.println(selectedAccount);
+		if(selectedAccount.equals("Savings")){
+			CardLayout cardLayout = (CardLayout)(cards.getLayout());
+			cardLayout.show(cards,saveViewText);
+		}
+	}
+	
+	
 	public static void main(String[] args) {
 		BankingGui program = new BankingGui();
 		
 	}
 	public void itemStateChanged(ItemEvent evt) {
-	    CardLayout cardLayout = (CardLayout)(cards.getLayout());
-	    cardLayout.show(cards, (String)evt.getItem());
-	    System.out.println("got card");
+//	    CardLayout cardLayout = (CardLayout)(cards.getLayout());
+//	    cardLayout.show(cards, (String)evt.getItem());
+//	    System.out.println("got card");
 	}
+
+
+	
 }
