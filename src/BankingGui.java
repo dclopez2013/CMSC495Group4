@@ -52,7 +52,6 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 	// Savings View Panel declarations
 	JTextArea saveTestText = new JTextArea(50,50);
 	
-	
 	public BankingGui() {
         setSize(800, 600);
         setLocationRelativeTo(null);
@@ -60,22 +59,29 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
        
        // main pane
         add(mainPane);
-        // ComboxBox Pane
-        mainPane.add(comboBoxPane,BorderLayout.PAGE_START);
-        // Cards Pane
-        mainPane.add(cards,BorderLayout.CENTER);
+        mainPane.setLayout(new GridBagLayout());
+        mainPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        
+        //TODO: Add combobox pane back in
+//        // ComboxBox Pane
+//        mainPane.add(comboBoxPane,BorderLayout.PAGE_START);
+//        // Cards Pane
+//        mainPane.add(cards,BorderLayout.CENTER);
+        
+        
+        
         // Add each card to card pane
-        cards.add(checkViewPanel);
-        cards.add(saveViewPanel);
-        CardLayout cardLayout = (CardLayout)(cards.getLayout());
-        cardLayout.addLayoutComponent(checkViewPanel,checkViewText);
-        cardLayout.addLayoutComponent(saveViewPanel,saveViewText);
+//        cards.add(checkViewPanel);
+//        cards.add(saveViewPanel);
+//        CardLayout cardLayout = (CardLayout)(cards.getLayout());
+//        cardLayout.addLayoutComponent(checkViewPanel,checkViewText);
+//        cardLayout.addLayoutComponent(saveViewPanel,saveViewText);
         // cardLayout.show(checkViewPanel, checkViewText);
         
    //adding UI elements to checkView panel
         
-        checkViewPanel.setLayout(new GridBagLayout());
-        checkViewPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+//        checkViewPanel.setLayout(new GridBagLayout());
+//        checkViewPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         
         //Mobile Banking Label
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
@@ -84,7 +90,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         optionsPanelCon.ipady = 50;
         optionsPanelCon.gridx = 1;
         optionsPanelCon.gridy = 0;
-        checkViewPanel.add(bankingText,optionsPanelCon);
+        mainPane.add(bankingText,optionsPanelCon);
         
         
         //Select Account Type
@@ -94,7 +100,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         //optionsPanelCon.ipady = 50;
         optionsPanelCon.gridx = 1;
         optionsPanelCon.gridy = 1;
-        checkViewPanel.add(selectAccount, optionsPanelCon);
+        mainPane.add(selectAccount, optionsPanelCon);
         
       //Change Account Type Button
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
@@ -103,7 +109,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         //optionsPanelCon.ipady = 50;
         optionsPanelCon.gridx = 2;
         optionsPanelCon.gridy = 1;
-        checkViewPanel.add(changeAccountButton, optionsPanelCon);
+        mainPane.add(changeAccountButton, optionsPanelCon);
         
         //View Balance Radio
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
@@ -111,14 +117,14 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         optionsPanelCon.weighty = 0.5;
         optionsPanelCon.gridx = 0;
         optionsPanelCon.gridy = 2;
-        checkViewPanel.add(viewBalanceRadio,optionsPanelCon);  
+        mainPane.add(viewBalanceRadio,optionsPanelCon);  
         
         //Make deposit Radio
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
         optionsPanelCon.weightx = 0.5;
         optionsPanelCon.gridx = 1;
         optionsPanelCon.gridy = 2;
-        checkViewPanel.add(makeDepositRadio,optionsPanelCon);
+        mainPane.add(makeDepositRadio,optionsPanelCon);
         viewBalanceRadio.setSelected(true);
         
         //Account Label
@@ -126,7 +132,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         optionsPanelCon.weightx = 0.5;
         optionsPanelCon.gridx = 2;
         optionsPanelCon.gridy = 2;
-        checkViewPanel.add(accountBalLabel,optionsPanelCon);
+        mainPane.add(accountBalLabel,optionsPanelCon);
         
         //Account Dollar amount
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
@@ -134,36 +140,59 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         optionsPanelCon.weighty = 0.5;
         optionsPanelCon.gridx = 3;
         optionsPanelCon.gridy = 2;
-        checkViewPanel.add(accountBalAmount,optionsPanelCon);
+        mainPane.add(accountBalAmount,optionsPanelCon);
         
         //Activity Label
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
         optionsPanelCon.weightx = 1;
         optionsPanelCon.gridx = 1;
         optionsPanelCon.gridy = 3;
-        checkViewPanel.add(activityLabel,optionsPanelCon);
+        mainPane.add(activityLabel,optionsPanelCon);
         
-        //Activity Panel
+        //Activity Panel 
+        //TODO: this needs to change to checking account panel and new check panel constraints
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
         optionsPanelCon.ipady = 150;
         optionsPanelCon.weightx = 1;
         optionsPanelCon.gridx = 1;
         optionsPanelCon.gridy = 4;
-        //if checking account and view balance show checking table data
-	        checkViewPanel.add(checkActivityPanel,optionsPanelCon);
-	        checkActivityPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-	        checkActivityPanel.setPreferredSize(new Dimension(450,100));
-	        
-	    //if savings account and view balance show savings table data    
-	        checkViewPanel.add(saveActivityPanel,optionsPanelCon);
-	        saveActivityPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-	        saveActivityPanel.setPreferredSize(new Dimension(450,100));
+        // Add each card to card pane
+        checkViewPanel.add(checkActivityPanel);
+        checkActivityPanel.setPreferredSize(new Dimension(800,500));
+        saveViewPanel.add(saveActivityPanel);
+        cards.add(checkViewPanel);
+        cards.add(saveViewPanel);
+        CardLayout cardLayout = (CardLayout)(cards.getLayout());
+        cardLayout.addLayoutComponent(checkViewPanel,checkViewText);
+        cardLayout.addLayoutComponent(saveViewPanel,saveViewText);
+        mainPane.add(cards, optionsPanelCon);
+
+        
+
+
+
+        
+        
+//        //if checking account and view balance show checking table data
+//        mainPane.add(checkActivityPanel,optionsPanelCon);
+//	        checkActivityPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//	        checkActivityPanel.setPreferredSize(new Dimension(450,100));
+//	        
+//	    //if savings account and view balance show savings table data    
+//	        mainPane.add(saveActivityPanel,optionsPanelCon);
+//	        saveActivityPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//	        saveActivityPanel.setPreferredSize(new Dimension(450,100));
         ButtonGroup group = new ButtonGroup();
         group.add(viewBalanceRadio);
         group.add(makeDepositRadio);
   
         // Adding elements to savingsViewPanel
         saveViewPanel.add(saveTestText);
+        
+        
+        
+        
+        
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);  
@@ -180,6 +209,10 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 		if(selectedAccount.equals("Savings")){
 			CardLayout cardLayout = (CardLayout)(cards.getLayout());
 			cardLayout.show(cards,saveViewText);
+		}
+		if(selectedAccount.equals("Checking")){
+			CardLayout cardLayout = (CardLayout)(cards.getLayout());
+			cardLayout.show(cards,checkViewText);
 		}
 	}
 	
