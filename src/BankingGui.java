@@ -36,13 +36,13 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 	JLabel accountBalAmount = new JLabel("$0.00");
 	JLabel activityLabel = new JLabel("Activity");
 	String[] checkColumnNames = {"Date","Transaction","Amount"};
+	//check data is the object that should be filled from the database or replaced with another data structure
 	String[][] checkData = {{"08/01/2019", "Checking Account Deposit", "$1,000"},
 			{"08/30/2019", "Interest Earned","$1.00"}};
 	JTable checkTableData = new JTable(checkData, checkColumnNames);
 	JScrollPane checkActivityPanel = new JScrollPane(checkTableData);
-	
-	
 	String[] saveColumnNames = {"Date","Transaction","Amount"};
+	//save data is the object that should be filled from the database or replaced with another data structure
 	String[][] saveData = {{"08/01/2019", "Savings Account Deposit", "$1,000"},
 			{"08/30/2019", "Interest Earned","$1.00"}};
 	JTable saveTableData = new JTable(saveData, saveColumnNames);
