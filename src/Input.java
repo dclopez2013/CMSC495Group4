@@ -14,11 +14,9 @@ public class Input {
 
     public String getTransactionType() {
 
-        // if the radio button labels were an array in GUi, then I could
+        // if the radio button labels were an array in Gui, then I could
         // use the array in a for-each here instead of hardcoding values
-
-        // filler value, needs work on gui to add withdraw radio
-        if (program.WHATISTHISRADIOCALLED.isSelected()) {
+        if (program.withdrawRadio.isSelected()) {
             transactionType = "withdrawal";
         } else if (program.makeDepositRadio.isSelected()) {
             transactionType = "deposit";
