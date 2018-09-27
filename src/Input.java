@@ -1,54 +1,70 @@
 public class Input {
 
+    // initiate instance of BankingGUI to use in methods
+    BankingGui program = new BankingGui();
+
+    // initiate variables needed in methods
     String userID = null;
     String accountType = null;
     String transactionType = null;
     String amountText = null;
     String date = null;
-    float amount = 0;
+    double amount = 0;
 
-
-    public float getAmount() {
-        amountText = amountTextField.getText();
-        amount = Float.parseFloat(amountText);
-        return amount;
-    }
 
     public String getTransactionType() {
-        if (withdrawRadioButtion.isSelected()) {
+
+        // if the radio button labels were an array in GUi, then I could
+        // use the array in a for-each here instead of hardcoding values
+
+        // filler value, needs work on gui to add withdraw radio
+        if (program.WHATISTHISRADIOCALLED.isSelected()) {
             transactionType = "withdrawal";
-        } else if (depositRadioButton.isSelected()) {
+        } else if (program.makeDepositRadio.isSelected()) {
             transactionType = "deposit";
+        } else if (program.viewBalanceRadio.isSelected()) {
+            transactionType = "viewBalance";
         }
 
         return transactionType;
     }
 
     public String getAccountType() {
-        if (checkingAccountCheckBox.isSelected()) {
-            accountType = "Checking";
-        } else if (savingAccountCheckBox.isSelected()) {
-            accountType = "Savings";
-        }
+
+        accountType = (String)program.selectAccount.getSelectedItem();
 
         return accountType;
     }
 
+    public double getAmount() {
+
+        // filler value, needs work
+        amount = 9.99;
+        return amount;
+    }
+
     public String getDate() {
+
+        // not worked on yet
         date = dateTextField.getText();
         return date;
     }
 
     public String getUserdID() {
+
+        // not worked on yet
         userID = userIdTextField.getText();
         return userID;
     }
 
     public static void main(String[] args) {
 
-        Call performTransaction (accountType, TransactionType, amount, date, userId);
+        Input testInput = new Input();
 
-        Call confirmationWindow (accountType, TransactionType, amount, date, userId);
-
+        System.out.println((String)testInput.getAmount());
+        System.out.println(testInput.getTransactionType());
+        System.out.println(testInput.getAccountType());
+        System.out.println(testInput.getDate());
+        System.out.println(testInput.getUserdID());
     }
 }
