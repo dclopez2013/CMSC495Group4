@@ -44,14 +44,14 @@ public class Input {
     public String getDate() {
 
         // not worked on yet
-        date = dateTextField.getText();
+
         return date;
     }
 
     public String getUserdID() {
 
         // not worked on yet
-        userID = userIdTextField.getText();
+
         return userID;
     }
 
@@ -59,7 +59,7 @@ public class Input {
 
         Input testInput = new Input();
 
-        System.out.println((String)testInput.getAmount());
+        System.out.println(testInput.getAmount());
         System.out.println(testInput.getTransactionType());
         System.out.println(testInput.getAccountType());
         System.out.println(testInput.getDate());
