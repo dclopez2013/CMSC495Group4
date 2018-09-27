@@ -32,6 +32,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 	ButtonGroup optionsGroup = new ButtonGroup();
 	JRadioButton viewBalanceRadio = new JRadioButton("View Balance");
 	JRadioButton makeDepositRadio = new JRadioButton("Make Deposit");
+	JRadioButton withdrawRadio = new JRadioButton("Withdraw"); 
 	JLabel accountBalLabel = new JLabel("Account Balance: ");
 	JLabel accountBalAmount = new JLabel("$0.00");
 	JLabel activityLabel = new JLabel("Activity");
@@ -107,10 +108,18 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         mainPane.add(makeDepositRadio,optionsPanelCon);
         viewBalanceRadio.setSelected(true);
         
-        //Account Label
+        //Make deposit Radio
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
         optionsPanelCon.weightx = 0.5;
         optionsPanelCon.gridx = 2;
+        optionsPanelCon.gridy = 2;
+        mainPane.add(withdrawRadio,optionsPanelCon);
+        
+        
+        //Account Label
+        optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
+        optionsPanelCon.weightx = 0.5;
+        optionsPanelCon.gridx = 3;
         optionsPanelCon.gridy = 2;
         mainPane.add(accountBalLabel,optionsPanelCon);
         
@@ -118,7 +127,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
         optionsPanelCon.weightx = 0.5;
         optionsPanelCon.weighty = 0.5;
-        optionsPanelCon.gridx = 3;
+        optionsPanelCon.gridx = 4;
         optionsPanelCon.gridy = 2;
         mainPane.add(accountBalAmount,optionsPanelCon);
         
@@ -130,7 +139,6 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         mainPane.add(activityLabel,optionsPanelCon);
         
         //Activity Panel 
-        //TODO: this needs to change to checking account panel and new check panel constraints
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
         optionsPanelCon.ipady = 150;
         optionsPanelCon.weightx = 1;
