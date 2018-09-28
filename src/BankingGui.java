@@ -19,6 +19,8 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 	final static String saveViewText = "Save View";
 	JPanel checkViewPanel = new JPanel();//card 1
 	JPanel saveViewPanel = new JPanel();//card 2
+	JPanel depositPanel = new JPanel();
+	JPanel withDrawPanel = new JPanel(); 
 	
 	//combobox pane
 	String[] accountType = {"Checking","Savings"};
@@ -159,6 +161,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
           ButtonGroup group = new ButtonGroup();
         group.add(viewBalanceRadio);
         group.add(makeDepositRadio);
+        group.add(withdrawRadio);
   
         // Adding elements to savingsViewPanel
         saveViewPanel.add(saveTestText);
