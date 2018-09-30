@@ -7,6 +7,14 @@ Purpose : this class provides connection to the database and queries
 the database
  */
 
+
+/*
+TODO: verify SQL statements
+      CREATE DB With Tables and test data.
+*/ 
+
+
+
 package capstone;
 
 //IMPORTS 
@@ -43,9 +51,7 @@ public class dbConnect {
     //BEGIND METHODS
 
 
-     //dynamically load the driver's class file into memory, 
-     //which automatically registers it. This method is preferable 
-     //because it allows you to make the driver registration configurable and portable.     
+     //dynamically load the driver's class file into memory   
     
     protected void InitDB() throws SQLException{
     try{
@@ -100,6 +106,8 @@ public class dbConnect {
         else{
            
         }
+
+        //SKELETON SQL STATEMENT
        /* String tempUid = uid;
         float tempAmmount = ammount;
         String tempAccType  = accType;
@@ -138,6 +146,7 @@ public class dbConnect {
            
         }
 
+        //SKELETON SQL STATEMENT
         /*INSERT using regular statement
         Statement stmt = con.createStatement();  
          ResultSet rs = stmt.executeQuery ("");
@@ -163,6 +172,9 @@ public class dbConnect {
 
     //CHECKS BALANCE OF ONE ACCOUNT AT A TIME
     protected float checkBalance(String uid, String accType) throws SQLException{
+
+
+        //SKELETON SQL STATEMENT
        /* Statement stmt = con.createStatement();
          ResultSet rs = stmt.executeQuery ("");
          stmt.closeOnCompletion();
@@ -185,10 +197,6 @@ public class dbConnect {
     return tempBalance;
     }
     
-
-    
-    
-
 
     //NULLIFY/CLEAR FIELDS
     private void clearUid(){
@@ -214,8 +222,3 @@ public class dbConnect {
     //END METHODS
 }
 //END CLASS
-
-/*
-TODO: verify SQL statements
-      CREATE DB With Tables and test data.
-*/ 
