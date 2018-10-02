@@ -2,7 +2,7 @@ import java.sql.SQLException;
 
 public class Account extends dbConnect {
 	
-	protected boolean checkAccountBalance(String uid, String accType) {
+	protected boolean verifyAccountBalance(String uid, String accType) {
 		float accountBalance = 0;
 		
 		try {
@@ -11,16 +11,21 @@ public class Account extends dbConnect {
 			e.printStackTrace();
 		}
 		
-		if (accountBalance > 0) {
+		if (accountBalance < 0) {
 			return false;
 		} else {
 			return true;
 		}
 	}
 	
-	protected boolean preformDeposit(String uid,float ammount, String accType) {
+	protected boolean performDeposit(String uid,float amount, String accountType, String Date) {
+		if (amount <= 0) {
+			return false;
+		}
+		
 		try {
-			desposit(uid, ammount, accType);
+			//will have to add the date when method parameters are updated
+			desposit(uid, amount, accountType);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -28,21 +33,26 @@ public class Account extends dbConnect {
 		return true;
 	}
 	
-	protected void preformWithdraw(String uid,float ammount, String accType)  {
+	protected boolean performWithdraw(String uid,float amount, String accountType, String Date)  {
+		if (amount <= 0) {
+			return false;
+		}
+		
 		try {
-			withdraw(uid, ammount, accType);
+			//will have to add the date when the method parameters are updated
+			withdraw(uid, amount, accountType);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return;
+		return true;
 	}
 	
-	protected float getAccountBalance(String uid, String accType) {
+	protected float getAccountBalance(String uid, String accountType) {
 		float accountBalance = 0;
 		
 		try {
-			accountBalance = checkBalance(uid, accType);
+			accountBalance = checkBalance(uid, accountType);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
