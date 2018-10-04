@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 	    //SQL (SELECT account_balance FROM Accounts Table WHERE account_type = "savings")
 	    //This will be return as the accountBalance variable
 	    	
-	    interest = accountBalance*(fixedInterestRate/365);
+	    interest = accountBalance * (fixedInterestRate/365);
 	    double newSavingsAccountBalance = accountBalance + interest;
 	    	
 	    //This is where we will call the database to add a row into transaction table
