@@ -15,7 +15,7 @@ TODO: verify SQL statements
 
 
 
-package capstone;
+//package capstone;
 
 //IMPORTS 
 import java.sql.*;
@@ -23,7 +23,7 @@ import java.math.*;
 //END IMPORTS
 
 //DATABASE CONNECT CLASS
-public class dbConnect {
+public class dbConnect extends Transaction{
     
 
     //BEGIN VARIABLES
@@ -116,7 +116,7 @@ public class dbConnect {
         stmt.closeOnCompletion();*/
     }
     
-    protected void desposit(String uid,float ammount, String accType) throws SQLException{   
+    protected void deposit(String uid, float ammount, String accType) throws SQLException{
         tempUid = uid;
         tempAmmount = ammount;
         tempAccType = accType;

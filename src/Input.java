@@ -1,7 +1,4 @@
-public class Input {
-
-    // initiate instance of BankingGUI to use in methods
-    BankingGui program = new BankingGui();
+public class Input extends BankingGui{
 
     // initiate variables needed in methods
     String userID = null;
@@ -16,11 +13,11 @@ public class Input {
 
         // if the radio button labels were an array in Gui, then I could
         // use the array in a for-each here instead of hardcoding values
-        if (program.withdrawRadio.isSelected()) {
+        if (withdrawRadio.isSelected()) {
             transactionType = "withdrawal";
-        } else if (program.makeDepositRadio.isSelected()) {
+        } else if (makeDepositRadio.isSelected()) {
             transactionType = "deposit";
-        } else if (program.viewBalanceRadio.isSelected()) {
+        } else if (viewBalanceRadio.isSelected()) {
             transactionType = "viewBalance";
         }
 
@@ -29,7 +26,7 @@ public class Input {
 
     public String getAccountType() {
 
-        accountType = (String)program.selectAccount.getSelectedItem();
+        accountType = (String)selectAccount.getSelectedItem();
 
         return accountType;
     }
