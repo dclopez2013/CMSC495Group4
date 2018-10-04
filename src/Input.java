@@ -45,7 +45,7 @@ public class Input extends dbConnect{
         return date;
     }
 
-    public String getUserdID() {
+    public String getUserID() {
 
         // not worked on yet
 
@@ -60,6 +60,6 @@ public class Input extends dbConnect{
         System.out.println(testInput.getTransactionType());
         System.out.println(testInput.getAccountType());
         System.out.println(testInput.getDate());
-        System.out.println(testInput.getUserdID());
+        System.out.println(testInput.getUserID());
     }
 }
