@@ -37,8 +37,8 @@ public class dbConnect extends BankingGui{
     //transaction holder variables
     private String tempUid = "";
     private String tempAccType = "";
-    private float tempAmmount = 0.0; 
-    private float tempBalance= 0.0;
+    private double tempAmmount = 0.0;
+    private double tempBalance= 0.0;
 
 
     //ERROR Strings
@@ -85,7 +85,7 @@ public class dbConnect extends BankingGui{
         //deposit using prepared statement
         PreparedStatment stmt = con.prepareStatment("select ? FROM Accounts WEHRE UID =?");//TODO : MATCH SQL WITH ACTUAL DB
         stmt.setString(1, accType);
-        stmt.setString(2, uid)
+        stmt.setString(2, uid);
         ResultSet resultSet = stmt.executeQuery();
         if(resultSet.next()){
         tempBalance = resultSet.getFloat(tempAccType.toString());
@@ -126,7 +126,7 @@ public class dbConnect extends BankingGui{
         //INSERTS DATA 
         stmt.setString(1, accType);
 
-        stmt.setString(2, uid)
+        stmt.setString(2, uid);
         ResultSet resultSet = stmt.executeQuery();
         if(resultSet.next()){
         tempBalance = resultSet.getFloat(tempAccType.toString());
@@ -171,7 +171,7 @@ public class dbConnect extends BankingGui{
     
 
     //CHECKS BALANCE OF ONE ACCOUNT AT A TIME
-    protected float checkBalance(String uid, String accType) throws SQLException{
+    protected double checkBalance(String uid, String accType) throws SQLException{
 
 
         //SKELETON SQL STATEMENT
@@ -186,7 +186,7 @@ public class dbConnect extends BankingGui{
         //deposit using prepared statement
         PreparedStatment stmt = con.prepareStatment("select ? FROM Accounts WEHRE UID =?"); //TODO : MATCH SQL WITH ACTUAL DB
         stmt.setString(1, accType);
-        stmt.setString(2, uid)
+        stmt.setString(2, uid);
         ResultSet resultSet = stmt.executeQuery();
         if(resultSet.next()){
         tempBalance = resultSet.getFloat(tempAccType.toString());

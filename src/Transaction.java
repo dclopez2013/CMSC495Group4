@@ -3,7 +3,7 @@ import java.sql.SQLException;
 public class Transaction extends Input {
 	
 	protected boolean verifyAccountBalance(String uid, String accType) {
-		float accountBalance = 0;
+		double accountBalance = 0;
 		
 		try {
 			accountBalance = checkBalance(uid, accType);
@@ -25,7 +25,7 @@ public class Transaction extends Input {
 		
 		try {
 			//will have to add the date when method parameters are updated
-			desposit(uid, amount, accountType);
+			deposit(uid, amount, accountType);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -48,8 +48,8 @@ public class Transaction extends Input {
 		return true;
 	}
 	
-	protected float getAccountBalance(String uid, String accountType) {
-		float accountBalance = 0;
+	protected double getAccountBalance(String uid, String accountType) {
+		double accountBalance = 0;
 		
 		try {
 			accountBalance = checkBalance(uid, accountType);
