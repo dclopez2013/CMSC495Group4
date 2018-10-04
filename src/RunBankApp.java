@@ -1,4 +1,4 @@
-public class RunBankApp extends dbConnect {
+public class RunBankApp extends Authenticate {
 
     RunBankApp grp4Final = new RunBankApp();
 

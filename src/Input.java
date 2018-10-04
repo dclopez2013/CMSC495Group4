@@ -1,4 +1,4 @@
-public class Input extends BankingGui{
+public class Input extends dbConnect{
 
     // initiate variables needed in methods
     String userID = null;

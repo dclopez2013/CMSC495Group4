@@ -1,4 +1,4 @@
-public class Authenticate extends Input{
+public class Authenticate extends Transaction{
 
 
 }

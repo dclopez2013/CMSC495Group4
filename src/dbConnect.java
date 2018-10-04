@@ -23,7 +23,7 @@ import java.math.*;
 //END IMPORTS
 
 //DATABASE CONNECT CLASS
-public class dbConnect extends Transaction{
+public class dbConnect extends BankingGui{
     
 
     //BEGIN VARIABLES

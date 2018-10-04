@@ -1,6 +1,6 @@
 import java.sql.SQLException;
 
-public class Account extends Authenticate {
+public class Account extends Input {
 	
 	protected boolean verifyAccountBalance(String uid, String accType) {
 		float accountBalance = 0;
