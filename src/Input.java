@@ -33,14 +33,14 @@ public class Input extends dbConnect{
 
     public double getAmount() {
 
-        // TODO: filler value, needs work
+        // todo - filler value, needs work
         amount = 9.99;
         return amount;
     }
 
     public String getDate() {
 
-        // TODO: not worked on yet
+        // todo - not worked on yet
         // still waiting on gui
 
         return date;
@@ -48,7 +48,7 @@ public class Input extends dbConnect{
 
     public String getUserID() {
 
-        // TODO: not worked on yet
+        // todo - not worked on yet
         // still waiting on gui
 
         return userID;

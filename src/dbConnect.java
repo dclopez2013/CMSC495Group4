@@ -76,7 +76,7 @@ public class dbConnect extends BankingGui{
 
 
      //WITHDRAW METHOD
-    protected void withdraw(String uid,float amount, String accType) throws SQLException{
+    protected void withdraw(String uid,double amount, String accType) throws SQLException{
 
         tempUid = uid;
         tempAmount = amount;
@@ -115,7 +115,7 @@ public class dbConnect extends BankingGui{
         stmt.closeOnCompletion();*/
     }
 
-    protected void deposit(String uid, float amount, String accType) throws SQLException{
+    protected void deposit(String uid, double amount, String accType) throws SQLException{
         tempUid = uid;
         tempAmount = amount;
         tempAccType = accType;
