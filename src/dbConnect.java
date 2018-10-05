@@ -19,7 +19,6 @@ TODO: verify SQL statements
 
 //IMPORTS
 import java.sql.*;
-import java.math.*;
 //END IMPORTS
 
 //DATABASE CONNECT CLASS
@@ -91,7 +90,7 @@ public class dbConnect extends BankingGui{
         tempBalance = resultSet.getFloat(tempAccType.toString());
 
 
-                if(checkBalance()>=tempBalance){
+                if(checkBalance(uid, accType)>=tempBalance){
                     tempBalance -= amount;
 
                     PreparedStatement stmtUpdate = con.prepareStatement("UPDATE Accounts SET ? = ? WHERE UID =?");//TODO : MATCH SQL WITH ACTUAL DB
