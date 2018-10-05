@@ -41,6 +41,7 @@ public class Input extends dbConnect{
     public String getDate() {
 
         // not worked on yet
+        // still waiting on gui
 
         return date;
     }
@@ -48,6 +49,7 @@ public class Input extends dbConnect{
     public String getUserID() {
 
         // not worked on yet
+        // still waiting on gui
 
         return userID;
     }

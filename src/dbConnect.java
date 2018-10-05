@@ -11,20 +11,20 @@ the database
 /*
 TODO: verify SQL statements
       CREATE DB With Tables and test data.
-*/ 
+*/
 
 
 
 //package capstone;
 
-//IMPORTS 
+//IMPORTS
 import java.sql.*;
 import java.math.*;
 //END IMPORTS
 
 //DATABASE CONNECT CLASS
 public class dbConnect extends BankingGui{
-    
+
 
     //BEGIN VARIABLES
     //database info
@@ -33,11 +33,11 @@ public class dbConnect extends BankingGui{
     private String PASS = "password";
     private boolean isConnected = false;
     private static Connection con;
-            
+
     //transaction holder variables
     private String tempUid = "";
     private String tempAccType = "";
-    private double tempAmmount = 0.0;
+    private double tempAmount = 0.0;
     private double tempBalance= 0.0;
 
 
@@ -51,8 +51,8 @@ public class dbConnect extends BankingGui{
     //BEGIND METHODS
 
 
-     //dynamically load the driver's class file into memory   
-    
+     //dynamically load the driver's class file into memory
+
     protected void InitDB() throws SQLException{
     try{
          Class.forName("org.apache.derby.jdbc.ClientDriver"); //TODO : MATCH DRIVER WITH NEEDED DB TYPE
@@ -64,7 +64,7 @@ public class dbConnect extends BankingGui{
     //TODO : insert correct ddb name and path with parameters
     con = DriverManager.getConnection(URL, USER, PASS);
     }
-    
+
     //check connection method
     protected boolean isClose() throws SQLException{
         return con.isClosed();
@@ -74,16 +74,16 @@ public class dbConnect extends BankingGui{
     protected void disconnectDB() throws SQLException{
         con.close();
      }
-    
+
 
      //WITHDRAW METHOD
-    protected void withdraw(String uid,float ammount, String accType) throws SQLException{
-       
+    protected void withdraw(String uid,float amount, String accType) throws SQLException{
+
         tempUid = uid;
-        tempAmmount = ammount;
+        tempAmount = amount;
         tempAccType = accType;
         //deposit using prepared statement
-        PreparedStatment stmt = con.prepareStatment("select ? FROM Accounts WEHRE UID =?");//TODO : MATCH SQL WITH ACTUAL DB
+        PreparedStatement stmt = con.prepareStatement("select ? FROM Accounts WEHRE UID =?");//TODO : MATCH SQL WITH ACTUAL DB
         stmt.setString(1, accType);
         stmt.setString(2, uid);
         ResultSet resultSet = stmt.executeQuery();
@@ -92,11 +92,11 @@ public class dbConnect extends BankingGui{
 
 
                 if(checkBalance()>=tempBalance){
-                    tempBalance -= ammount;
+                    tempBalance -= amount;
 
-                    PreparedStatment stmtUpdate = con.prepareStatment("UPDATE Accounts SET ? = ? WHERE UID =?");//TODO : MATCH SQL WITH ACTUAL DB
+                    PreparedStatement stmtUpdate = con.prepareStatement("UPDATE Accounts SET ? = ? WHERE UID =?");//TODO : MATCH SQL WITH ACTUAL DB
                     stmtUpdate.setString(1, accType);
-                    stmtUpdate.setFloat(2, tempBalance);
+                    stmtUpdate.setDouble(2, tempBalance);
                     stmtUpdate.setString(3,tempUid);
                     stmt.closeOnCompletion();
                     stmtUpdate.closeOnCompletion();
@@ -104,63 +104,63 @@ public class dbConnect extends BankingGui{
 
         }
         else{
-           
+
         }
 
         //SKELETON SQL STATEMENT
        /* String tempUid = uid;
-        float tempAmmount = ammount;
+        float tempAmount = amount;
         String tempAccType  = accType;
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery ("");
         stmt.closeOnCompletion();*/
     }
-    
-    protected void deposit(String uid, float ammount, String accType) throws SQLException{
+
+    protected void deposit(String uid, float amount, String accType) throws SQLException{
         tempUid = uid;
-        tempAmmount = ammount;
+        tempAmount = amount;
         tempAccType = accType;
 
         //deposit using prepared statement
-        PreparedStatment stmt = con.prepareStatment("select ? FROM Accounts WEHRE UID =?"); //TODO : MATCH SQL WITH ACTUAL DB
-        //INSERTS DATA 
+        PreparedStatement stmt = con.prepareStatement("select ? FROM Accounts WEHRE UID =?"); //TODO : MATCH SQL WITH ACTUAL DB
+        //INSERTS DATA
         stmt.setString(1, accType);
 
         stmt.setString(2, uid);
         ResultSet resultSet = stmt.executeQuery();
         if(resultSet.next()){
         tempBalance = resultSet.getFloat(tempAccType.toString());
-        tempBalance += ammount;
+        tempBalance += amount;
 
-        PreparedStatment stmtUpdate = con.prepareStatment("UPDATE Accounts SET ? = ? WHERE UID =?"); //TODO : MATCH SQL WITH ACTUAL DB
+        PreparedStatement stmtUpdate = con.prepareStatement("UPDATE Accounts SET ? = ? WHERE UID =?"); //TODO : MATCH SQL WITH ACTUAL DB
         stmtUpdate.setString(1, accType);
-        stmtUpdate.setFloat(2, tempBalance);
+        stmtUpdate.setDouble(2, tempBalance);
         stmtUpdate.setString(3,tempUid);
 
         stmt.closeOnCompletion();
         stmtUpdate.closeOnCompletion();
-        
+
         this.clearAll();
         }
         else{
-           
+
         }
 
         //SKELETON SQL STATEMENT
         /*INSERT using regular statement
-        Statement stmt = con.createStatement();  
+        Statement stmt = con.createStatement();
          ResultSet rs = stmt.executeQuery ("");
-         stmt.closeOnCompletion();   
+         stmt.closeOnCompletion();
          */
     }
-    
+
     protected String getUid(String uid) throws SQLException{
          //TODO UID retrieval logic
         tempUid = uid;
-        PreparedStatment stmt = con.prepareStatment("select count (uid) FROM Accounts WEHRE UID =?"); //TODO : MATCH SQL WITH ACTUAL DB
+        PreparedStatement stmt = con.prepareStatement("select count (uid) FROM Accounts WEHRE UID =?"); //TODO : MATCH SQL WITH ACTUAL DB
         stmt.setString(1, tempUid);
-        ResultSet resultSet = stmt.executeQuery(); 
-       
+        ResultSet resultSet = stmt.executeQuery();
+
         if(resultSet.next()){
         return tempUid;
         }
@@ -168,7 +168,7 @@ public class dbConnect extends BankingGui{
         return errorUID;
         }
     }
-    
+
 
     //CHECKS BALANCE OF ONE ACCOUNT AT A TIME
     protected double checkBalance(String uid, String accType) throws SQLException{
@@ -184,7 +184,7 @@ public class dbConnect extends BankingGui{
         tempUid = uid;
         tempAccType = accType;
         //deposit using prepared statement
-        PreparedStatment stmt = con.prepareStatment("select ? FROM Accounts WEHRE UID =?"); //TODO : MATCH SQL WITH ACTUAL DB
+        PreparedStatement stmt = con.prepareStatement("select ? FROM Accounts WEHRE UID =?"); //TODO : MATCH SQL WITH ACTUAL DB
         stmt.setString(1, accType);
         stmt.setString(2, uid);
         ResultSet resultSet = stmt.executeQuery();
@@ -192,11 +192,11 @@ public class dbConnect extends BankingGui{
         tempBalance = resultSet.getFloat(tempAccType.toString());
         }
         else{
-           
+
         }
     return tempBalance;
     }
-    
+
 
     //NULLIFY/CLEAR FIELDS
     private void clearUid(){
@@ -205,8 +205,8 @@ public class dbConnect extends BankingGui{
     private void clearAccType(){
         this.tempAccType="";
     }
-    private void clearAmmount(){
-        this.tempAmmount=0.00;
+    private void clearAmount(){
+        this.tempAmount=0.00;
     }
     private void clearBalance(){
         this.tempBalance=0.00;
@@ -215,7 +215,7 @@ public class dbConnect extends BankingGui{
     private void clearAll(){
         this.clearUid();
         this.clearAccType();
-        this.clearAmmount();
+        this.clearAmount();
         this.clearBalance();
     }
 
