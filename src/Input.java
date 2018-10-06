@@ -40,17 +40,13 @@ public class Input extends dbConnect{
 
     public String getDate() {
 
-        // todo - not worked on yet
-        // still waiting on gui
-
+        // todo - not worked on yet, still waiting on gui
         return date;
     }
 
     public String getUserID() {
 
-        // todo - not worked on yet
-        // still waiting on gui
-
+        // todo - not worked on yet, still waiting on gui
         return userID;
     }
 
