@@ -17,11 +17,15 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 	JPanel cards = new JPanel(new CardLayout());
 	final static String checkViewText = "Check View";
 	final static String saveViewText = "Save View";
-	final static String depositText = "Deposit";
-	final static String withdrawText = "Withdraw";
+	final static String checkDepositText = "Check Deposit";
+	final static String checkWithdrawText = "Check Withdraw";
+	final static String saveDepositText = "Save Deposit";
+	final static String saveWithdrawText = "Save Withdraw";
+	
 	
 	//Strings for action listener
 	final static String accountButtonName = "Account Button";
+	final static String viewRadioName = "View Balance";
 	final static String depositRadioName = "Make Deposit";
 	final static String withdrawRadioName = "Make Withdraw";
 	
@@ -31,7 +35,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 	JPanel checkingWithdrawPanel = new JPanel();
 	JPanel saveViewPanel = new JPanel();//card 2
 	JPanel saveDepositPanel = new JPanel();
-	JPanel saveWithDrawPanel = new JPanel();
+	JPanel saveWithdrawPanel = new JPanel();
 	
 	
 	//combobox pane
@@ -61,10 +65,15 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 	
 	//Checking Deposit panel
 	JTextArea checkDepTest = new JTextArea("check deposit screen test");
-	JScrollPane checkScrollPanel = new JScrollPane(checkDepTest);
+	JScrollPane checkDepScrollPanel = new JScrollPane(checkDepTest);
+	
+	//Checking Withdraw panel
+		JTextArea checkWithTest = new JTextArea("check Withdraw screen test");
+		JScrollPane checkWithScrollPanel = new JScrollPane(checkWithTest);
 	
 	
 	//Savings Declarations
+		//savings view panel
 	String[] saveColumnNames = {"Date","Transaction","Amount"};
 	//save data is the object that should be filled from the database or replaced with another data structure
 	String[][] saveData = {{"08/01/2019", "Savings Account Deposit", "$1,000"},
@@ -72,13 +81,18 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 	JTable saveTableData = new JTable(saveData, saveColumnNames);
 	JScrollPane saveActivityPanel = new JScrollPane(saveTableData);
 	
+	//Savings Deposit panel
+		JTextArea saveDepTest = new JTextArea("savings deposit screen test");
+		JScrollPane saveDepScrollPanel = new JScrollPane(saveDepTest);
+		
+		//Savings Withdraw panel
+			JTextArea saveWithTest = new JTextArea("savings Withdraw screen test");
+			JScrollPane saveWithScrollPanel = new JScrollPane(saveWithTest);
+			JTextArea saveTestText = new JTextArea(50,50);
+
 	GridBagConstraints optionsPanelCon = new GridBagConstraints();
 	GridBagConstraints withdrawCon = new GridBagConstraints();
 	GridBagConstraints depositCon = new GridBagConstraints();
-	
-	
-	// Savings View Panel declarations
-	JTextArea saveTestText = new JTextArea(50,50);
 	
 	public BankingGui() {
         setSize(800, 600);
@@ -178,15 +192,24 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         checkViewPanel.add(checkActivityPanel);
         checkActivityPanel.setPreferredSize(new Dimension(550,200));
         saveViewPanel.add(saveActivityPanel);
-        checkingDepositPanel.add(checkScrollPanel);
+        checkingDepositPanel.add(checkDepScrollPanel);
+        checkingWithdrawPanel.add(checkWithScrollPanel);
+        saveDepositPanel.add(saveDepScrollPanel);
+        saveWithdrawPanel.add(saveWithScrollPanel);
+        
         cards.add(checkViewPanel);
         cards.add(saveViewPanel);
         cards.add(checkingDepositPanel);
+        cards.add(checkingWithdrawPanel);
+        cards.add(saveDepositPanel);
+        cards.add(saveWithdrawPanel);
         CardLayout cardLayout = (CardLayout)(cards.getLayout());
         cardLayout.addLayoutComponent(checkViewPanel,checkViewText);
         cardLayout.addLayoutComponent(saveViewPanel,saveViewText);
-        cardLayout.addLayoutComponent(checkingDepositPanel, depositText);
-        cardLayout.addLayoutComponent(checkingWithdrawPanel,withdrawText);
+        cardLayout.addLayoutComponent(checkingDepositPanel, checkDepositText);
+        cardLayout.addLayoutComponent(checkingWithdrawPanel,checkWithdrawText);
+        cardLayout.addLayoutComponent(saveDepositPanel, saveDepositText);
+        cardLayout.addLayoutComponent(saveWithdrawPanel,saveWithdrawText);
         mainPane.add(cards, optionsPanelCon);
 
           ButtonGroup group = new ButtonGroup();
@@ -200,13 +223,17 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         setVisible(true);  
 
         //Select Account Listener
-        changeAccountButton.addActionListener(this); 
+        changeAccountButton.addActionListener(this);
+        viewBalanceRadio.addActionListener(this);
         makeDepositRadio.addActionListener(this); 
+        withdrawRadio.addActionListener(this);
+        
         
         
         
         //Name some elements
         changeAccountButton.setName(accountButtonName);
+        viewBalanceRadio.setName(viewRadioName);
         makeDepositRadio.setName(depositRadioName);
         withdrawRadio.setName(withdrawRadioName);
 	}
@@ -226,23 +253,27 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 			System.out.println(sourceName);
 			//user clicked deposit radio button
 			if (isSavings) {
-				System.out.println("Haven't made other panels yet");
+				CardLayout cardLayout = (CardLayout)(cards.getLayout());
+				cardLayout.show(cards,saveDepositText);
 			} else {
 				//make checking deposit panel show up
 				
 				CardLayout cardLayout = (CardLayout)(cards.getLayout());
-				cardLayout.show(cards,depositText);
+				cardLayout.show(cards,checkDepositText);
 			}
 			break;
 			
 		case withdrawRadioName:
 			System.out.println(sourceName);
 			if (isSavings){
-				//make savings withdraw panel show up
+				CardLayout cardLayout = (CardLayout)(cards.getLayout());
+				cardLayout.show(cards,saveWithdrawText);
 			} else {
-				//make checking withdraw panel show up
+				CardLayout cardLayout = (CardLayout)(cards.getLayout());
+				cardLayout.show(cards,checkWithdrawText);
 			}
 			break;
+		case viewRadioName:
 		case accountButtonName:
 			if (isSavings) {
 				CardLayout cardLayout = (CardLayout)(cards.getLayout());
@@ -251,6 +282,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 				CardLayout cardLayout = (CardLayout)(cards.getLayout());
 				cardLayout.show(cards,checkViewText);
 			}
+			viewBalanceRadio.setSelected(true);
 			break;
 		}
 	}
