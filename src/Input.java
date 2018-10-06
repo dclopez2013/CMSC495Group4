@@ -1,7 +1,4 @@
-public class Input {
-
-    // initiate instance of BankingGUI to use in methods
-    BankingGui program = new BankingGui();
+public class Input extends dbConnect{
 
     // initiate variables needed in methods
     String userID = null;
@@ -14,15 +11,13 @@ public class Input {
 
     public String getTransactionType() {
 
-        // if the radio button labels were an array in GUi, then I could
+        // if the radio button labels were an array in Gui, then I could
         // use the array in a for-each here instead of hardcoding values
-
-        // filler value, needs work on gui to add withdraw radio
-        if (program.WHATISTHISRADIOCALLED.isSelected()) {
+        if (withdrawRadio.isSelected()) {
             transactionType = "withdrawal";
-        } else if (program.makeDepositRadio.isSelected()) {
+        } else if (makeDepositRadio.isSelected()) {
             transactionType = "deposit";
-        } else if (program.viewBalanceRadio.isSelected()) {
+        } else if (viewBalanceRadio.isSelected()) {
             transactionType = "viewBalance";
         }
 
@@ -31,29 +26,27 @@ public class Input {
 
     public String getAccountType() {
 
-        accountType = (String)program.selectAccount.getSelectedItem();
+        accountType = (String)selectAccount.getSelectedItem();
 
         return accountType;
     }
 
     public double getAmount() {
 
-        // filler value, needs work
+        // todo - filler value, needs work
         amount = 9.99;
         return amount;
     }
 
     public String getDate() {
 
-        // not worked on yet
-        date = dateTextField.getText();
+        // todo - not worked on yet, still waiting on gui
         return date;
     }
 
-    public String getUserdID() {
+    public String getUserID() {
 
-        // not worked on yet
-        userID = userIdTextField.getText();
+        // todo - not worked on yet, still waiting on gui
         return userID;
     }
 
@@ -61,10 +54,10 @@ public class Input {
 
         Input testInput = new Input();
 
-        System.out.println((String)testInput.getAmount());
+        System.out.println(testInput.getAmount());
         System.out.println(testInput.getTransactionType());
         System.out.println(testInput.getAccountType());
         System.out.println(testInput.getDate());
-        System.out.println(testInput.getUserdID());
+        System.out.println(testInput.getUserID());
     }
 }
