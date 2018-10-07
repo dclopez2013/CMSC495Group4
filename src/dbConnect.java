@@ -1,4 +1,4 @@
-package capstone;/*
+/*
 Author : Darian Lopez
 Class : CMSC 495
 Project: Capstone
@@ -13,13 +13,12 @@ TODO: verify SQL statements
       CREATE DB With Tables and test data.
 */
 
-
-
-//package capstone;
-
 //IMPORTS
-import java.sql.*;
 import org.apache.derby.jdbc.ClientDataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 //END IMPORTS
 
 //DATABASE CONNECT CLASS
