@@ -19,6 +19,7 @@ TODO: verify SQL statements
 
 //IMPORTS
 import java.sql.*;
+import org.apache.derby.jdbc.ClientDataSource;
 //END IMPORTS
 
 //DATABASE CONNECT CLASS
@@ -27,9 +28,9 @@ public class dbConnect extends BankingGui{
 
     //BEGIN VARIABLES
     //database info
-    private String URL = "jdbc:oracle::1521:";
-    private String USER = "username";
-    private String PASS = "password";
+    //private String URL = "jdbc:oracle::1521:";
+    private String username = "username";
+    private String password = "password";
     private boolean isConnected = false;
     private static Connection con;
 
@@ -54,15 +55,22 @@ public class dbConnect extends BankingGui{
 
     protected void InitDB() throws SQLException{
     try{
-         Class.forName("org.apache.derby.jdbc.ClientDriver"); //TODO : MATCH DRIVER WITH NEEDED DB TYPE
+         Class.forName("org.apache.derby.jdbc.ClientDriver");
       } catch(ClassNotFoundException e) {
          System.out.println("Class not found "+ e);
+		 ds = new ClientDataSource();
+        ds.setDatabaseName(accountdb);
+        ds.setServerName("localhost");
+        ds.setPortNumber(1521);
+        ds.setUser(username);
+        ds.setPassword(password);
+        ds.setDataSourceName("jdbc:derby");
       }
-
-    //CONNECT TO DB WITH CREDENTIALS
-    //TODO : insert correct ddb name and path with parameters
-    con = DriverManager.getConnection(URL, USER, PASS);
+    //connect to DB
+    //TODO : insert correct db name and path with parameters
+    con = ds.getConnection();
     }
+
 
     //check connection method
     protected boolean isClose() throws SQLException{
