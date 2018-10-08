@@ -33,7 +33,7 @@ public class Input extends dbConnect{
 
     public double getAmount() {
 
-        // todo - not worked on yet, still waiting on gui
+        // todo - still needs work
         // this is going to pull the text from the checking deposit text area
         // waiting for shanea to see if using one jtextarea for all screens works
         amount = Double.parseDouble(checkDepTest.getText());
@@ -48,10 +48,11 @@ public class Input extends dbConnect{
 
     public String getUserID() {
 
-        // todo - not worked on yet, still waiting on gui
+        // todo - needs notes still
+        userID = auth.getText();
         return userID;
     }
-    
+
     public static void main(String[] args) {
 
         Input testInput = new Input();
