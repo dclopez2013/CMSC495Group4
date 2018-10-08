@@ -45,7 +45,9 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 	JButton changeAccountButton = new JButton("Change Account");
 	
 	//Main Panel declarations
-	JLabel bankingText = new JLabel("Mobile Banking");
+	JLabel bankingText = new JLabel("Online Banking");
+	JLabel authLabel = new JLabel("Enter Username: ");
+	JTextField auth = new JTextField(); 
 	ButtonGroup optionsGroup = new ButtonGroup();
 	JRadioButton viewBalanceRadio = new JRadioButton("View Balance");
 	JRadioButton makeDepositRadio = new JRadioButton("Make Deposit");
@@ -106,13 +108,32 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         
                 
         //Mobile Banking Label
+        bankingText.setFont(new Font("Courier New", Font.BOLD, 26));
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
         optionsPanelCon.weightx = 0.5;
         optionsPanelCon.weighty = 0.5;
-        optionsPanelCon.ipady = 50;
+//        optionsPanelCon.ipady = 50;
         optionsPanelCon.gridx = 1;
         optionsPanelCon.gridy = 0;
         mainPane.add(bankingText,optionsPanelCon);
+       
+      //Auth Label
+        optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
+        optionsPanelCon.weightx = 0.5;
+        optionsPanelCon.weighty = 0.5;
+//        optionsPanelCon.ipady = 50;
+        optionsPanelCon.gridx = 2;
+        optionsPanelCon.gridy = 0;
+        mainPane.add(authLabel,optionsPanelCon);
+        
+      //Auth Box
+        optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
+        optionsPanelCon.weightx = 0.5;
+        optionsPanelCon.weighty = 0.5;
+//        optionsPanelCon.ipady = 50;
+        optionsPanelCon.gridx = 3;
+        optionsPanelCon.gridy = 0;
+        mainPane.add(auth,optionsPanelCon);
         
         
         //Select Account Type
