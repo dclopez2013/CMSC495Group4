@@ -1,8 +1,8 @@
-/*
+package capstone;/*
 Author : Darian Lopez
 Class : CMSC 495
 Project: Capstone
-Date : 27 Sep 18
+Date : 7 Oct 18
 Purpose : this class provides connection to the database and queries
 the database
  */
@@ -19,6 +19,7 @@ TODO: verify SQL statements
 
 //IMPORTS
 import java.sql.*;
+import org.apache.derby.jdbc.ClientDataSource;
 //END IMPORTS
 
 //DATABASE CONNECT CLASS
@@ -27,11 +28,12 @@ public class dbConnect extends BankingGui{
 
     //BEGIN VARIABLES
     //database info
-    private String URL = "jdbc:oracle::1521:";
+    //private String URL = "jdbc:oracle::1521:";
     private String USER = "username";
     private String PASS = "password";
     private boolean isConnected = false;
     private static Connection con;
+    private ClientDataSource ds;
 
     //transaction holder variables
     private String tempUid = "";
@@ -51,19 +53,26 @@ public class dbConnect extends BankingGui{
 
 
      //dynamically load the driver's class file into memory
-
+        
     protected void InitDB() throws SQLException{
     try{
-         Class.forName("org.apache.derby.jdbc.ClientDriver"); //TODO : MATCH DRIVER WITH NEEDED DB TYPE
+         Class.forName("org.apache.derby.jdbc.ClientDriver");
       } catch(ClassNotFoundException e) {
          System.out.println("Class not found "+ e);
+		 ds = new ClientDataSource();
+        ds.setDatabaseName("accountDB");
+        ds.setServerName("localhost");
+        ds.setPortNumber(1527);
+        ds.setUser("username");
+        ds.setPassword("pasword");
+        ds.setDataSourceName("jdbc:derby");
       }
-
-    //CONNECT TO DB WITH CREDENTIALS
+    //connect to DB
     //TODO : insert correct ddb name and path with parameters
-    con = DriverManager.getConnection(URL, USER, PASS);
+    con = ds.getConnection();
     }
 
+    
     //check connection method
     protected boolean isClose() throws SQLException{
         return con.isClosed();
