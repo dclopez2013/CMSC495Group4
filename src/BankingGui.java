@@ -54,7 +54,14 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 	JRadioButton withdrawRadio = new JRadioButton("Withdraw"); 
 	JLabel accountBalLabel = new JLabel("Account Balance: ");
 	JLabel accountBalAmount = new JLabel("$0.00");
+	//Create date picker box
+	JLabel dateSelectorLabel = new JLabel("Date: ");
+	JTextField dateSelector = new JTextField();
+	//Create Amount box
+	JLabel transactAmountLabel = new JLabel("Amount: ");
+	JTextField transactAmount = new JTextField();
 	JLabel activityLabel = new JLabel("Activity");
+	JButton submitTransact = new JButton("Submit");
 	
 	//Checking Declarations
 	//Checking View Panel
@@ -170,7 +177,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         mainPane.add(makeDepositRadio,optionsPanelCon);
         viewBalanceRadio.setSelected(true);
         
-        //Make deposit Radio
+        //Withdraw Radio
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
         optionsPanelCon.weightx = 0.5;
         optionsPanelCon.gridx = 2;
@@ -192,12 +199,52 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         optionsPanelCon.gridx = 4;
         optionsPanelCon.gridy = 2;
         mainPane.add(accountBalAmount,optionsPanelCon);
+     
+        //Date label 
+        optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
+        optionsPanelCon.weightx = 0.25;
+        optionsPanelCon.weighty = 0.5;
+        optionsPanelCon.gridx = 1;
+        optionsPanelCon.gridy = 3;
+        mainPane.add(dateSelectorLabel,optionsPanelCon);
+        
+        //Date box 
+        optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
+        optionsPanelCon.weightx = 0.25;
+        optionsPanelCon.weighty = 0.5;
+        optionsPanelCon.gridx = 2;
+        optionsPanelCon.gridy = 3;
+        mainPane.add(dateSelector,optionsPanelCon);
+     
+        //Transaction amount label
+        optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
+        optionsPanelCon.weightx = 0.25;
+        optionsPanelCon.weighty = 0.5;
+        optionsPanelCon.gridx = 3;
+        optionsPanelCon.gridy = 3;
+        mainPane.add(transactAmountLabel,optionsPanelCon);
+       
+        //Transaction amount 
+        optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
+        optionsPanelCon.weightx = 0.25;
+        optionsPanelCon.weighty = 0.5;
+        optionsPanelCon.gridx = 4;
+        optionsPanelCon.gridy = 3;
+        mainPane.add(transactAmount,optionsPanelCon);
+        
+        //Submit amount Button 
+        optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
+        optionsPanelCon.weightx = 0.25;
+        optionsPanelCon.weighty = 0.5;
+        optionsPanelCon.gridx = 5;
+        optionsPanelCon.gridy = 3;
+        mainPane.add(submitTransact,optionsPanelCon);
         
         //Activity Label
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
         optionsPanelCon.weightx = 1;
         optionsPanelCon.gridx = 1;
-        optionsPanelCon.gridy = 3;
+        optionsPanelCon.gridy = 4;
         mainPane.add(activityLabel,optionsPanelCon);
         
         //Activity Panel 
@@ -205,7 +252,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         optionsPanelCon.ipady = 150;
         optionsPanelCon.weightx = 1;
         optionsPanelCon.gridx = 0;
-        optionsPanelCon.gridy = 4;
+        optionsPanelCon.gridy = 5;
         optionsPanelCon.gridwidth = 4;
         // Add each card to card pane
       //add checkScrollPanel to checkingDeposit Panel
