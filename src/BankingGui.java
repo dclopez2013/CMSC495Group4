@@ -6,6 +6,12 @@
 **/
 
 import java.awt.event.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
@@ -28,6 +34,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 	final static String viewRadioName = "View Balance";
 	final static String depositRadioName = "Make Deposit";
 	final static String withdrawRadioName = "Make Withdraw";
+	final static String submitTransactName = "Submit Transaction";
 	
 	
 	JPanel checkViewPanel = new JPanel();//card 1
@@ -56,12 +63,13 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 	JLabel accountBalAmount = new JLabel("$0.00");
 	//Create date picker box
 	JLabel dateSelectorLabel = new JLabel("Date: ");
-	JTextField dateSelector = new JTextField();
+	//Date
+	JTextField dateTextField = new JTextField("mm/dd/yyyy");
 	//Create Amount box
 	JLabel transactAmountLabel = new JLabel("Amount: ");
 	JTextField transactAmount = new JTextField();
 	JLabel activityLabel = new JLabel("Activity");
-	JButton submitTransact = new JButton("Submit");
+	JButton submitTransact = new JButton("Submit");	
 	
 	//Checking Declarations
 	//Checking View Panel
@@ -214,7 +222,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         optionsPanelCon.weighty = 0.5;
         optionsPanelCon.gridx = 2;
         optionsPanelCon.gridy = 3;
-        mainPane.add(dateSelector,optionsPanelCon);
+        mainPane.add(dateTextField,optionsPanelCon);
      
         //Transaction amount label
         optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
@@ -295,15 +303,25 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         viewBalanceRadio.addActionListener(this);
         makeDepositRadio.addActionListener(this); 
         withdrawRadio.addActionListener(this);
+        submitTransact.addActionListener(this);
         
-        
-        
+       
         
         //Name some elements
         changeAccountButton.setName(accountButtonName);
         viewBalanceRadio.setName(viewRadioName);
         makeDepositRadio.setName(depositRadioName);
         withdrawRadio.setName(withdrawRadioName);
+        submitTransact.setName(submitTransactName);
+        
+        
+        //clear text when date is clicked
+        dateTextField.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+            	dateTextField.setText("");
+            }
+        });
 	}
 	
 	
@@ -351,6 +369,21 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 				cardLayout.show(cards,checkViewText);
 			}
 			viewBalanceRadio.setSelected(true);
+			break;
+		case submitTransactName:
+			//Code should go here for what to do when you hit the submit transaction button
+			//Date value
+			
+			String dateInput = dateTextField.getText();
+			try {
+			    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+			LocalDate dateValue = LocalDate.parse(dateInput,formatter);
+			System.out.printf("%s%n", dateValue);
+			}
+			catch (DateTimeParseException exc) {
+			    System.out.printf("%s is not parsable!%n", dateInput);
+			    throw exc;      // Rethrow the exception.
+			}
 			break;
 		}
 	}
