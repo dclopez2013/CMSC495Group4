@@ -69,7 +69,6 @@ import java.util.concurrent.TimeUnit;
 	   }
 	    
 	    public static void main(String[] args) {
-	    	//String date = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
 	    	Calendar today = Calendar.getInstance();
 	    	today.set(Calendar.HOUR_OF_DAY, 1);
 	    	today.set(Calendar.MINUTE, 0);
