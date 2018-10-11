@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 	    double fixedInterestRate = 0.02;
 	    double interest = 0;
 	    
-	  //This will be used to add date with transaction
+	    //This will be used to add date with transaction
 	    Date myDate = new Date();
 	    String date = new SimpleDateFormat("MM/dd/yyyy").format(myDate);
 	    
@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 	 
 	    protected void dbConnection() throws SQLException{
 	        try{
-	             Class.forName("org.apache.derby.jdbc.ClientDriver"); //TODO : MATCH DRIVER WITH NEEDED DB TYPE
+	             Class.forName("org.apache.derby.jdbc.ClientDriver"); 
 	          } catch(ClassNotFoundException e) {
 	             System.out.println("Class not found "+ e);
 	          }
