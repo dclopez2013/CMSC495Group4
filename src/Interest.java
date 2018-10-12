@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 	public class Interest extends TimerTask {
 
-        //variablesgti for db
+        //variables for db
         dbConnect db = new dbConnect();
         private static Connection con;
         private ClientDataSource ds;
