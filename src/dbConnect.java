@@ -91,18 +91,20 @@ public class dbConnect extends BankingGui{
     
     //check connection method
     protected boolean isClose() throws SQLException{
+        this.InitDB();
         return con.isClosed();
     }
 
     //DISCONNECT FROM DB
     protected void disconnectDB() throws SQLException{
+        this.InitDB();
         con.close();
      }
 
 
      //WITHDRAW METHOD
     protected void withdraw(String uid,double amount, String accType) throws SQLException{
-
+        this.InitDB();
         tempUid = uid;
         tempAmount = amount;
         tempAccType = accType;
@@ -142,6 +144,7 @@ public class dbConnect extends BankingGui{
     }
 
     protected void deposit(String uid, double amount, String accType, LocalDateTime ldt) throws SQLException{
+        this.InitDB();
         tempUid = uid;
         tempAmount = amount;
         tempAccType = accType;
@@ -184,9 +187,11 @@ public class dbConnect extends BankingGui{
          ResultSet rs = stmt.executeQuery ("");
          stmt.closeOnCompletion();
          */
+        
     }
 
     protected String getUid(String uid) throws SQLException{
+        this.InitDB();
          //TODO UID retrieval logic
         tempUid = uid;
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM ACCOUNTS WHERE UID =?"); //TODO : MATCH SQL WITH ACTUAL DB
@@ -204,7 +209,7 @@ public class dbConnect extends BankingGui{
 
     //CHECKS BALANCE OF ONE ACCOUNT AT A TIME
     protected double checkBalance(String uid, String accType) throws SQLException{
-
+           this.InitDB();
 
         //SKELETON SQL STATEMENT
        /* Statement stmt = con.createStatement();
@@ -254,6 +259,7 @@ public class dbConnect extends BankingGui{
     
     // method for returning Java time api local date type variable from db
     protected LocalDate getDate(String uid) throws SQLException{
+        this.InitDB();
         PreparedStatement stmt = con.prepareStatement("select * FROM ACCOUNTS WHERE UID=?"); //TODO : MATCH SQL WITH ACTUAL DB
         stmt.setString(1, uid);
         ResultSet resultSet = stmt.executeQuery();
@@ -273,6 +279,7 @@ public class dbConnect extends BankingGui{
     //TESTING METHODS 
     //TESTING Method to check table for functionality
     protected String checkTable() throws SQLException{
+        this.InitDB();
          //TODO UID retrieval logic
         
         PreparedStatement stmt = con.prepareStatement("select * FROM ACCOUNTS"); //TODO : MATCH SQL WITH ACTUAL DB
@@ -290,7 +297,7 @@ public class dbConnect extends BankingGui{
     
     //method tests string-ify of date type for db insertion
     protected void testDate() throws SQLException{
-        
+        this.InitDB();
         LocalDate ld = LD.now();
         
         
@@ -306,7 +313,7 @@ public class dbConnect extends BankingGui{
     
     //method tests UNstring-ify of date type for db insertion
     protected void testDate2() throws SQLException{
-        
+        this.InitDB();
         LocalDate ld;
         
         
