@@ -1,4 +1,6 @@
 //Import Class
+import org.apache.derby.jdbc.ClientDataSource;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,37 +13,34 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+
 	public class Interest extends TimerTask {
+
+        //variablesgti for db
+        dbConnect db = new dbConnect();
+        private static Connection con;
+        private ClientDataSource ds;
 		
 	    double accountBalance = 0;
 	    double fixedInterestRate = 0.02;
 	    double interest = 0;
+
 	    
 	    //This will be used to add date with transaction
 	    Date myDate = new Date();
 	    String date = new SimpleDateFormat("MM/dd/yyyy").format(myDate);
 	    
-	    //Variables for DB
-	    private String URL = "jdbc:oracle::1521:";
-	    private String USER = "username";
-	    private String PASS = "password";
-	    private static Connection con;
-	 
-	    protected void dbConnection() throws SQLException{
-	        try{
-	             Class.forName("org.apache.derby.jdbc.ClientDriver"); 
-	          } catch(ClassNotFoundException e) {
-	             System.out.println("Class not found "+ e);
-	          }
-	      con = DriverManager.getConnection(URL, USER, PASS);
-	    }
-	    
 	    //This will calculate the interest (need a run method in a Class that extends TimerTask)
 	    public void run() {
-	    String accountBalanceQuery = "SELECT ? FROM Accounts";
-	    
-	    try {
-	    	PreparedStatement accountBalanceStmt = con.prepareStatement(accountBalanceQuery);
+			try {
+				db.InitDB();
+				con = ds.getConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			try {
+	    	PreparedStatement accountBalanceStmt = con.prepareStatement("SELECT ? FROM Accounts");
 	    	accountBalanceStmt.setString(1, "SavingAccount");
 	    	ResultSet resultSet = accountBalanceStmt.executeQuery();
 	    	if(resultSet.next()){
