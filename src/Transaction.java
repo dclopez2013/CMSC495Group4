@@ -8,10 +8,27 @@ public class Transaction extends Input {
     dbConnect db = new dbConnect();
     
 	boolean hasBalance;
+
+	Input userInput = new Input();
 	
+<<<<<<< HEAD
 	public boolean performTransaction(String accountType, String transactionType, double amount, String uid, LocalDateTime localDate) throws SQLException {
 		System.out.println("at perform transaction");
                 
+=======
+	protected boolean performTransaction(String accountType, String transactionType, double amount, String uid, LocalDateTime localDate) {
+
+        accountType = userInput.getAccountType();
+        transactionType = userInput.getTransactionType();
+        amount = userInput.getAmount();
+        uid = userInput.getUserID();
+        localDate = userInput.getDate();
+
+		if (transactionType != "withdraw" || transactionType != "deposit") {
+			return false;
+		}
+		
+>>>>>>> a08e662770d4cd7528ecdc8fba5512b7feaf57b3
 		if (transactionType == "withdraw") {
                     System.out.println("at withdraw");
                     System.out.println(transactionType);

@@ -2,10 +2,10 @@ package capstone;
 
 
 public class RunBankApp extends Authenticate {
-    
+
     public static BankingGui bg;
     // calls an instance of this class, which is the main run of the app
-    
+
     public static void main(String[] args) {
 
        // Input testInput = new Input();
@@ -20,5 +20,5 @@ bg = new BankingGui();
     // todo - should this be a call to Interest or should Interest be
     // implemented in this class?
 
-    //Interest grp4FinalInterest = new Interest();
+  //  Interest grp4FinalInterest = new Interest();
 }
