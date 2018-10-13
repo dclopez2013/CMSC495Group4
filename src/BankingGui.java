@@ -5,16 +5,9 @@
 @purpose: GUI and main for Banking App
 **/
 
-import java.awt.event.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.awt.*;
 import javax.swing.*;
-import java.util.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class BankingGui extends JFrame implements ItemListener, ActionListener{
 
@@ -372,33 +365,35 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 			break;
 		case submitTransactName:
 			//Code should go here for what to do when you hit the submit transaction button
-			//Date value
+
+            System.out.println("Button Pressed");
+            System.out.println((String)selectAccount.getSelectedItem());
+            System.out.println(transactAmount.getText());
+            System.out.println(dateTextField.getText());
+            System.out.println(auth.getText());
+
+            Transaction.performAction();
+
+
+            //Date value
 			
-			String dateInput = dateTextField.getText();
-			try {
-			    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-			LocalDate dateValue = LocalDate.parse(dateInput,formatter);
-			System.out.printf("%s%n", dateValue);
-			}
-			catch (DateTimeParseException exc) {
-			    System.out.printf("%s is not parsable!%n", dateInput);
-			    throw exc;      // Rethrow the exception.
-			}
-			break;
+//			String dateInput = dateTextField.getText();
+//			try {
+//			    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+//			LocalDate dateValue = LocalDate.parse(dateInput,formatter);
+//			System.out.printf("%s%n", dateValue);
+//			}
+//			catch (DateTimeParseException exc) {
+//			    System.out.printf("%s is not parsable!%n", dateInput);
+//			    throw exc;      // Rethrow the exception.
+//			}
+//			break;
 		}
 	}
-	
-	
-	public static void main(String[] args) {
-		BankingGui program = new BankingGui();
-		
-	}
+
 	public void itemStateChanged(ItemEvent evt) {
 //	    CardLayout cardLayout = (CardLayout)(cards.getLayout());
 //	    cardLayout.show(cards, (String)evt.getItem());
 //	    System.out.println("got card");
 	}
-
-
-	
 }

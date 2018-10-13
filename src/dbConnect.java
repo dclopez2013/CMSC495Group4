@@ -13,7 +13,6 @@ TODO: verify SQL statements
       CREATE DB With Tables and test data.
 fix update SQL statements
 */
-package capstone;
 //IMPORTS
 import org.apache.derby.jdbc.ClientDataSource;
 import java.sql.Connection;
@@ -28,7 +27,7 @@ import java.time.format.DateTimeFormatter;
 //END IMPORTS
 
 //DATABASE CONNECT CLASS
-public class dbConnect extends BankingGui{
+public class dbConnect {
 
 
     //BEGIN VARIABLES

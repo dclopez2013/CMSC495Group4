@@ -1,10 +1,10 @@
-public class RunBankApp extends Authenticate {
+public class RunBankApp {
 
-    // calls an instance of this class, which is the main run of the app
-    RunBankApp grp4Final = new RunBankApp();
+    public static void main(String[] args) {
 
-    // todo - should this be a call to Interest or should Interest be
-    // implemented in this class?
+        BankingGui gui = new BankingGui();
 
-    //Interest grp4FinalInterest = new Interest();
+        Interest grp4FinalInterest = new Interest();
+
+    }
 }
