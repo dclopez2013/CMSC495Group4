@@ -3,9 +3,17 @@ import java.time.LocalDateTime;
 
 public class Transaction extends Input {
 	boolean hasBalance;
+
+	Input userInput = new Input();
 	
 	protected boolean performTransaction(String accountType, String transactionType, double amount, String uid, LocalDateTime localDate) {
-		
+
+        accountType = userInput.getAccountType();
+        transactionType = userInput.getTransactionType();
+        amount = userInput.getAmount();
+        uid = userInput.getUserID();
+        localDate = userInput.getDate();
+
 		if (transactionType != "withdraw" || transactionType != "deposit") {
 			return false;
 		}
