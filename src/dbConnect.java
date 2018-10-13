@@ -13,7 +13,7 @@ TODO: verify SQL statements
       CREATE DB With Tables and test data.
 fix update SQL statements
 */
-package capstone;
+
 //IMPORTS
 import org.apache.derby.jdbc.ClientDataSource;
 import java.sql.Connection;

@@ -5,16 +5,12 @@
 @purpose: GUI and main for Banking App
 **/
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.awt.*;
-import javax.swing.*;
-import java.util.*;
 
 public class BankingGui extends JFrame implements ItemListener, ActionListener{
 
@@ -43,7 +39,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 	JPanel saveViewPanel = new JPanel();//card 2
 	JPanel saveDepositPanel = new JPanel();
 	JPanel saveWithdrawPanel = new JPanel();
-	
+
 	
 	//combobox pane
 	String[] accountType = {"Checking","Savings"};
@@ -372,7 +368,14 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 			break;
 		case submitTransactName:
 			//Code should go here for what to do when you hit the submit transaction button
-			//Date value
+
+            Transaction tr = new Transaction();
+            Input in = new Input();
+
+            tr.performTransaction(in.getAccountType(), in.getTransactionType(),
+                    in.getAmount(), in.getUserID(), in.getDate());
+
+            //Date value
 			
 			String dateInput = dateTextField.getText();
 			try {
