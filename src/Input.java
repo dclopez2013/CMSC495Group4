@@ -1,11 +1,13 @@
-public class Input extends dbConnect{
+import java.time.LocalDateTime;
+
+public class Input extends dbConnect {
 
     // initiate variables needed in methods
     String userID = null;
     String accountType = null;
     String transactionType = null;
     String amountText = null;
-    String date = null;
+    LocalDateTime date = null;
     double amount = 0;
 
 
@@ -40,7 +42,7 @@ public class Input extends dbConnect{
         return amount;
     }
 
-    public String getDate() {
+    public LocalDateTime getDate() {
 
         // todo - not worked on yet, still waiting on gui
         return date;
