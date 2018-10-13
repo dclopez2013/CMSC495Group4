@@ -1,3 +1,5 @@
+package capstone;
+
 /**
 @filename: BankingGui.java
 @date: 9/24/18
@@ -8,9 +10,15 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import capstone.Transaction.*;
+import capstone.Input.*;
 
 public class BankingGui extends JFrame implements ItemListener, ActionListener{
 
@@ -42,9 +50,9 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 
 	
 	//combobox pane
-	String[] accountType = {"Checking","Savings"};
+	String[] accountType = {"CHECKINGACCOUNT","SAVINGACCOUNT"};
 	JComboBox selectAccount = new JComboBox(accountType);
-	String selectedAccount = "Checking";
+	String selectedAccount = "CHECKINGACCOUNT";
 	JButton changeAccountButton = new JButton("Change Account");
 	
 	//Main Panel declarations
@@ -128,23 +136,23 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         optionsPanelCon.gridy = 0;
         mainPane.add(bankingText,optionsPanelCon);
        
-      //Auth Label
-        optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
-        optionsPanelCon.weightx = 0.5;
-        optionsPanelCon.weighty = 0.5;
-//        optionsPanelCon.ipady = 50;
-        optionsPanelCon.gridx = 2;
-        optionsPanelCon.gridy = 0;
-        mainPane.add(authLabel,optionsPanelCon);
-        
-      //Auth Box
-        optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
-        optionsPanelCon.weightx = 0.5;
-        optionsPanelCon.weighty = 0.5;
-//        optionsPanelCon.ipady = 50;
-        optionsPanelCon.gridx = 3;
-        optionsPanelCon.gridy = 0;
-        mainPane.add(auth,optionsPanelCon);
+//      //Auth Label
+//        optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
+//        optionsPanelCon.weightx = 0.5;
+//        optionsPanelCon.weighty = 0.5;
+////        optionsPanelCon.ipady = 50;
+//        optionsPanelCon.gridx = 2;
+//        optionsPanelCon.gridy = 0;
+//        mainPane.add(authLabel,optionsPanelCon);
+//        
+//      //Auth Box
+//        optionsPanelCon.fill = GridBagConstraints.HORIZONTAL;
+//        optionsPanelCon.weightx = 0.5;
+//        optionsPanelCon.weighty = 0.5;
+////        optionsPanelCon.ipady = 50;
+//        optionsPanelCon.gridx = 3;
+//        optionsPanelCon.gridy = 0;
+//        mainPane.add(auth,optionsPanelCon);
         
         
         //Select Account Type
@@ -288,6 +296,7 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
         group.add(viewBalanceRadio);
         group.add(makeDepositRadio);
         group.add(withdrawRadio);
+        makeDepositRadio.setSelected(true);
   
         // Adding elements to savingsViewPanel
         saveViewPanel.add(saveTestText);
@@ -325,23 +334,29 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Component source = (Component) e.getSource();
 		String sourceName = source.getName();
-		System.out.println();
+		//System.out.println();
 		String selectedAccount = (String)selectAccount.getSelectedItem();
 		boolean isSavings = selectedAccount.equals("Savings");
 		
 		switch (sourceName){
 		
 		case depositRadioName:
-			System.out.println(sourceName);
+			//System.out.println(sourceName);
 			//user clicked deposit radio button
 			if (isSavings) {
 				CardLayout cardLayout = (CardLayout)(cards.getLayout());
 				cardLayout.show(cards,saveDepositText);
+                                viewBalanceRadio.setSelected(false);
+                        withdrawRadio.setSelected(false);
+                        makeDepositRadio.setSelected(true);
 			} else {
 				//make checking deposit panel show up
 				
 				CardLayout cardLayout = (CardLayout)(cards.getLayout());
 				cardLayout.show(cards,checkDepositText);
+                                viewBalanceRadio.setSelected(false);
+                        withdrawRadio.setSelected(false);
+                        makeDepositRadio.setSelected(true);
 			}
 			break;
 			
@@ -350,9 +365,15 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 			if (isSavings){
 				CardLayout cardLayout = (CardLayout)(cards.getLayout());
 				cardLayout.show(cards,saveWithdrawText);
+                                viewBalanceRadio.setSelected(false);
+                                withdrawRadio.setSelected(true);
+                                makeDepositRadio.setSelected(false);
 			} else {
 				CardLayout cardLayout = (CardLayout)(cards.getLayout());
 				cardLayout.show(cards,checkWithdrawText);
+                                viewBalanceRadio.setSelected(false);
+                                withdrawRadio.setSelected(true);
+                                makeDepositRadio.setSelected(false);
 			}
 			break;
 		case viewRadioName:
@@ -360,20 +381,40 @@ public class BankingGui extends JFrame implements ItemListener, ActionListener{
 			if (isSavings) {
 				CardLayout cardLayout = (CardLayout)(cards.getLayout());
 				cardLayout.show(cards,saveViewText);
+                                viewBalanceRadio.setSelected(true);
+                        withdrawRadio.setSelected(false);
+                        makeDepositRadio.setSelected(false);
 			} else {
 				CardLayout cardLayout = (CardLayout)(cards.getLayout());
 				cardLayout.show(cards,checkViewText);
+                                viewBalanceRadio.setSelected(true);
+                        withdrawRadio.setSelected(false);
+                        makeDepositRadio.setSelected(false);
 			}
-			viewBalanceRadio.setSelected(true);
+			
 			break;
 		case submitTransactName:
 			//Code should go here for what to do when you hit the submit transaction button
-
+                    dbConnect db = new dbConnect();
+                {
+                    try {
+                        db.InitDB();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(BankingGui.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             Transaction tr = new Transaction();
             Input in = new Input();
-
-            tr.performTransaction(in.getAccountType(), in.getTransactionType(),
-                    in.getAmount(), in.getUserID(), in.getDate());
+                
+                {
+                    try {
+                         tr.performTransaction(in.getAccountType(), in.getTransactionType(),in.getAmount(),in.getUserID(),in.getDate());
+                       // db.deposit("user",5000.00,"CHECKINGACCOUNT", LocalDateTime.now());
+                        //tr.performTransaction("CHECKINGACCOUNT", "deposit",1500.00, "user", in.getDate());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(BankingGui.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
 
             //Date value
 			

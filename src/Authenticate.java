@@ -1,3 +1,6 @@
+package capstone;
+
+
 public class Authenticate extends Transaction{
 
     String uname = getUserID();

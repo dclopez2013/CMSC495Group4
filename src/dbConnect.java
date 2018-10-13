@@ -1,3 +1,5 @@
+package capstone;
+
 /*
 Author : Darian Lopez
 Class : CMSC 495
@@ -28,7 +30,7 @@ import java.time.format.DateTimeFormatter;
 //END IMPORTS
 
 //DATABASE CONNECT CLASS
-public class dbConnect extends BankingGui{
+public class dbConnect{
 
 
     //BEGIN VARIABLES
@@ -45,6 +47,7 @@ public class dbConnect extends BankingGui{
     private String tempAccType = "";
     private double tempAmount = 0.0;
     private double tempBalance= 0.0;
+    private double tempBalance2= 0.0;
     private Date tempDate;
     private LocalDateTime LDT = LocalDateTime.now();
     private LocalDate LD;
@@ -108,25 +111,26 @@ public class dbConnect extends BankingGui{
         tempUid = uid;
         tempAmount = amount;
         tempAccType = accType;
+        double accBal = 0.0;
         //deposit using prepared statement
         PreparedStatement stmt = con.prepareStatement("select * FROM Accounts WHERE UID =?");//TODO : MATCH SQL WITH ACTUAL DB
         //stmt.setString(1, tempAccType);
         stmt.setString(1, tempUid);
         ResultSet resultSet = stmt.executeQuery();
         if(resultSet.next()){
-        tempBalance = resultSet.getFloat(tempAccType);
-
+        tempBalance = resultSet.getDouble(tempAccType);
+        System.out.println("your current balance is: "+tempBalance);
 
                 if(checkBalance(uid, accType)>=tempBalance){
-                    tempBalance -= amount;
-
+                    tempBalance = tempBalance - tempAmount;
+                    System.out.println("your current balance is: "+tempBalance);
                     String updateStatement = "UPDATE ACCOUNTS SET "+tempAccType+" = ?"+ "WHERE UID =?";
                     PreparedStatement stmtUpdate = con.prepareStatement(updateStatement);//TODO : MATCH SQL WITH ACTUAL DB
                     stmtUpdate.setDouble(1, tempBalance);
                     stmtUpdate.setString(2,tempUid);
                     stmtUpdate.executeUpdate();
-                    stmt.closeOnCompletion();
-                    stmtUpdate.closeOnCompletion();
+                   // stmt.closeOnCompletion();
+                   // stmtUpdate.closeOnCompletion();
                 }
 
         }
@@ -141,6 +145,7 @@ public class dbConnect extends BankingGui{
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery ("");
         stmt.closeOnCompletion();*/
+       this.clearAll();
     }
 
     protected void deposit(String uid, double amount, String accType, LocalDateTime ldt) throws SQLException{
@@ -168,11 +173,12 @@ public class dbConnect extends BankingGui{
         String updateStatement = "UPDATE ACCOUNTS SET "+tempAccType+" = ?,Date=?"+ "WHERE UID =?";
         PreparedStatement stmtUpdate = con.prepareStatement(updateStatement);//TODO : MATCH SQL WITH ACTUAL DB
         stmtUpdate.setDouble(1, tempBalance);
-        stmtUpdate.setString(2,tempUid);
-        stmtUpdate.setString(3, LD.toString());
+        stmtUpdate.setString(2, LD.toString());
+        stmtUpdate.setString(3,tempUid);
+        
         stmtUpdate.executeUpdate();
-        stmt.closeOnCompletion();
-        stmtUpdate.closeOnCompletion();
+       // stmt.closeOnCompletion();
+       // stmtUpdate.closeOnCompletion();
 
         this.clearAll();
         System.out.println("deposit done");
@@ -226,12 +232,14 @@ public class dbConnect extends BankingGui{
         stmt.setString(1, tempUid);
         ResultSet resultSet = stmt.executeQuery();
         if(resultSet.next()){
-        tempBalance = resultSet.getFloat(tempAccType);
+        tempBalance2 = resultSet.getFloat(tempAccType);
         }
         else{
 
         }
-    return tempBalance;
+        
+    return tempBalance2;
+    
     }
 
 

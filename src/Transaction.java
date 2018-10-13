@@ -1,24 +1,31 @@
+package capstone;
+
+
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class Transaction extends Input {
+    dbConnect db = new dbConnect();
+    
 	boolean hasBalance;
 	
-	protected boolean performTransaction(String accountType, String transactionType, double amount, String uid, LocalDateTime localDate) {
-		
-		if (transactionType != "withdraw" || transactionType != "deposit") {
-			return false;
-		}
-		
+	public boolean performTransaction(String accountType, String transactionType, double amount, String uid, LocalDateTime localDate) throws SQLException {
+		System.out.println("at perform transaction");
+                
 		if (transactionType == "withdraw") {
-			hasBalance = verifyAccountBalance(uid,accountType,amount);
-		} else if (!hasBalance) {
-			return false;
-		} else if (hasBalance) {
-			performWithdraw(uid, amount, accountType);
+                    System.out.println("at withdraw");
+                    System.out.println(transactionType);
+                    System.out.println("username : "+uid);
+		System.out.println("accountType: "+accountType);
+		System.out.println("date :"+ localDate);
+                    performWithdraw(uid, amount, accountType);
+		}	
+		if (transactionType == "checkBalance") {
+                    System.out.println("at checkbalance");
+			Double balance = db.checkBalance(uid,accountType);
 		} 
-		
 		if (transactionType == "deposit") {
+                    System.out.println("deposit");
 			performDeposit(uid, amount, accountType, localDate);
 		}
 		
@@ -26,11 +33,11 @@ public class Transaction extends Input {
 		
 	}
 	
-	protected boolean verifyAccountBalance(String uid, String accountType, double amount) {
+	public boolean verifyAccountBalance(String uid, String accountType, double amount) {
 		double accountBalance = 0;
 		
 		try {
-			accountBalance = checkBalance(uid, accountType);
+			accountBalance = db.checkBalance(uid, accountType);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -43,41 +50,45 @@ public class Transaction extends Input {
 		
 	}
 	
-	protected boolean performDeposit(String uid,double amount, String accountType, LocalDateTime date) {
-		if (amount <= 0) {
-			return false;
-		}
+	public void performDeposit(String uid,double amount, String accountType, LocalDateTime date) {
 		
+		System.out.println("username : "+uid);
+		System.out.println("username : "+amount);
+		System.out.println("accountType: "+accountType);
+		System.out.println("date :"+ date);
 		try {
 			//will have to add the date when method parameters are updated
-			deposit(uid, amount, accountType, date);
+			db.deposit(uid, amount, accountType, date);
+			//dbConnect db = new dbConnect();
+                        //db.deposit(uid, amount, accountType, date);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		return true;
 	}
 	
-	protected boolean performWithdraw(String uid,double amount, String accountType)  {
+	protected void performWithdraw(String uid,double amount, String accountType)  {
 		if (amount <= 0) {
-			return false;
+			
 		}
 		
 		try {
-			
-			withdraw(uid, amount, accountType);
+			System.out.println("username : "+uid);
+		System.out.println("username : "+amount);
+		System.out.println("accountType: "+accountType);
+		System.out.println("date :"+ date);
+			db.withdraw(uid, amount, accountType);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return true;
+		
 	}
 	
 	protected double getAccountBalance(String uid, String accountType) {
 		double accountBalance = 0;
 		
 		try {
-			accountBalance = checkBalance(uid, accountType);
+			accountBalance = db.checkBalance(uid, accountType);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

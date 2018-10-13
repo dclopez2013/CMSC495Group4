@@ -1,34 +1,42 @@
+package capstone;
+
+
 import java.time.LocalDateTime;
 
-public class Input extends dbConnect {
-
+public class Input {
+        
+    BankingGui bg = RunBankApp.bg;
     // initiate variables needed in methods
     String userID = null;
     String accountType = null;
     String transactionType = null;
     String amountText = null;
     LocalDateTime date = null;
-    double amount = 0;
+    public double amount = 0.0;
 
 
     public String getTransactionType() {
 
         // if the radio button labels were an array in Gui, then I could
         // use the array in a for-each here instead of hardcoding values
-        if (withdrawRadio.isSelected()) {
-            transactionType = "withdrawal";
-        } else if (makeDepositRadio.isSelected()) {
+        if (bg.withdrawRadio.isSelected()) {
+            transactionType = "withdraw";
+            return transactionType;
+        } else if (bg.makeDepositRadio.isSelected()) {
             transactionType = "deposit";
-        } else if (viewBalanceRadio.isSelected()) {
-            transactionType = "viewBalance";
+            return transactionType;
+        } else if (bg.viewBalanceRadio.isSelected()) {
+            transactionType = "checkBalance";
+            return transactionType;
         }
 
+        System.out.println("input class chose "+transactionType);
         return transactionType;
     }
 
     public String getAccountType() {
 
-        accountType = (String)selectAccount.getSelectedItem();
+        accountType = (String)bg.selectAccount.getSelectedItem();
 
         return accountType;
     }
@@ -38,21 +46,22 @@ public class Input extends dbConnect {
         // todo - still needs work
         // this is going to pull the text from the checking deposit text area
         // waiting for shanea to see if using one jtextarea for all screens works
-        amount = Double.parseDouble(checkDepTest.getText());
+        amount = Double.parseDouble(bg.transactAmount.getText());
         return amount;
     }
 
     public LocalDateTime getDate() {
 
         // todo - not worked on yet, still waiting on gui
-        return date;
+        LocalDateTime ldt = LocalDateTime.now();
+        return ldt;
     }
 
     public String getUserID() {
 
         // todo - needs notes still
-        userID = auth.getText();
-        return userID;
+        //userID = bg.auth.getText();
+        return "user";
     }
 
     public static void main(String[] args) {
