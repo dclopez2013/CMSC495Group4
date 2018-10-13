@@ -6,5 +6,5 @@ public class RunBankApp extends Authenticate {
     // todo - should this be a call to Interest or should Interest be
     // implemented in this class?
 
-    //Interest grp4FinalInterest = new Interest();
+    Interest grp4FinalInterest = new Interest();
 }
