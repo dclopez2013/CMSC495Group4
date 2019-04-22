@@ -8,6 +8,6 @@ A desktop based application to keep tracks of money in checking and saving accou
 
 # JavaFXML Bank system with backend.
 
-![](FXML Version/images/bank.png)
+![](bank.png)
 
 
